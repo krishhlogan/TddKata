@@ -1,0 +1,17 @@
+# .tekton/push.yaml
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  name: incoming-test
+  annotations:
+    pipelinesascode.tekton.dev/on-event: "[incoming]"
+    pipelinesascode.tekton.dev/on-target-branch: "[main]"
+spec:
+  pipelineSpec:
+    tasks:
+      - name: say-hello
+        taskSpec:
+          steps:
+            - name: echo
+              image: alpine
+              script: echo "hello from incoming webhook"
